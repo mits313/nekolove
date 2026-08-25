@@ -1,0 +1,476 @@
+@charset "UTF-8";
+
+/*===========================================================
+  NEKO LOVE ／ JavaScript実習用スタイル
+
+  ★ このファイルは実習用と同じ内容です。
+     JavaScript 側（js/script.js）だけが完成しています。
+
+     ページの中で ★ が付いている3か所が、
+     JavaScript がクラスを付けたときに効くスタイルです。
+     どんな見た目に変わるのか、先に読んでおいてください。
+===========================================================*/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin-block-end: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+
+/*-------------------------------------------
+ページ全体のスタイル
+-------------------------------------------*/
+
+body {
+  color: #383e45; /* ページ全体の文字色（濃いグレー） */
+  margin: 0;      /* ページ全体の外側余白を0にする */
+}
+
+img {
+  height: auto; /* 横幅に合わせて高さを自動調整し、縦横比を保つ */
+}
+
+/*-------------------------------------------
+ヘッダー
+-------------------------------------------*/
+
+header {
+  background-color: #fff;         /* 固定表示時に下のコンテンツが透けないよう背景色をつける */
+  display: flex;                  /* ロゴとナビゲーションを横並びに配置する */
+  justify-content: space-between; /* 子要素を左右の端に振り分ける */
+  align-items: center;            /* 子要素を縦方向の中央に揃える */
+  margin: 0 auto;                 /* 左右の余白を自動にして中央寄せにする */
+  padding-block: 1rem;            /* 上下に1remの内側余白を追加する */
+  padding-inline: 1rem;           /* 左右に1remの内側余白を追加する */
+  position: sticky;               /* スクロールしてもヘッダーを画面上部に固定する */
+  top: 0;                         /* 固定位置を画面の最上部にする */
+  z-index: 100;                   /* 重なり順。メニューより手前に置く */
+
+  .site-title {
+    margin: 0;    /* 見出しの外側余白を0にする */
+    width: 120px; /* サイトタイトル（ロゴ）の横幅を120pxに固定する */
+  }
+}
+
+.global-nav {
+  display: flex;       /* ナビゲーション項目を横並びにする */
+  align-items: center; /* 高さを縦方向中央で揃える */
+  gap: 1rem;           /* 項目同士の間隔 */
+  margin: 0;           /* リスト既定の外側余白を解除する */
+  padding: 0;          /* リスト既定の内側余白を解除する */
+  list-style: none;    /* リスト先頭の「・」を非表示にする */
+
+  li a {
+    display: flex;           /* クリッカブルエリアを広げる */
+    align-items: center;     /* テキストを縦方向の中央に揃える */
+    justify-content: center; /* テキストを横方向の中央に揃える */
+    min-width: 44px;         /* クリッカブルエリアの最小幅 */
+    min-height: 44px;        /* クリッカブルエリアの最小高さ */
+    padding: 0 1rem;         /* 左右に余白を追加する */
+    color: #24292e;          /* リンクの文字色 */
+    text-decoration: none;   /* リンクの下線を消す */
+
+    &:hover {
+      opacity: 0.7; /* マウスを乗せたとき少し薄く見せる */
+    }
+  }
+
+  .nav-cta {
+    min-height: auto;          /* ボタン用に高さの指定をリセットする */
+    padding: 0.6rem 1.25rem;   /* ボタンらしい余白に調整する */
+    border-radius: 999px;      /* 角を大きく丸めてピル型にする */
+    background-color: #383e45; /* 塗りつぶし背景にする */
+    color: #fff;               /* 文字色を白にする */
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+/*-------------------------------------------
+ハンバーガーボタン（3本線 → ✕）
+
+  パソコン幅では非表示。スマートフォン幅でだけ表示します。
+-------------------------------------------*/
+
+.menu-btn {
+  display: none;              /* パソコン幅では隠しておく */
+  position: relative;
+  width: 44px;                /* 指で押しやすい大きさを確保する */
+  height: 44px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 101;               /* メニューより手前に置く＝開いていても押せる */
+}
+
+.menu-btn-bar {
+  /* 3本とも共通の見た目 */
+  &,
+  &::before,
+  &::after {
+    position: absolute;
+    left: 11px;
+    width: 22px;
+    height: 2px;
+    background-color: #383e45;
+    transition: 0.3s;  /* ✕に変わる動きを0.3秒でつなぐ */
+  }
+
+  /* 真ん中の線 */
+  & {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* 上の線 */
+  &::before {
+    content: "";  /* 疑似要素は content がないと表示されない */
+    top: 13px;
+  }
+
+  /* 下の線 */
+  &::after {
+    content: "";
+    bottom: 13px;
+  }
+}
+
+/* ★1 ボタンに is-open が付いたときの見た目＝✕になる */
+.menu-btn.is-open {
+  .menu-btn-bar {
+    background-color: transparent; /* 真ん中の線だけ消す */
+
+    &::before {
+      top: 50%;
+      transform: translateY(-50%) rotate(45deg);  /* 中央に移動してから45度回す */
+    }
+
+    &::after {
+      bottom: 50%;
+      transform: translateY(50%) rotate(-45deg);  /* 逆向きに45度回す */
+    }
+  }
+}
+
+/*-------------------------------------------
+Mainvisual
+-------------------------------------------*/
+
+.mainvisual {
+  img {
+    width: 100%;                       /* 画像を横幅いっぱいに広げる */
+    height: 600px;                     /* 画像の高さを固定する */
+    object-fit: cover;                 /* 縦横比を保ったまま枠全体を覆う */
+    object-position: bottom 0 right 0; /* 表示位置を右下に合わせる */
+  }
+}
+
+/*-------------------------------------------
+About / Cat 共通
+-------------------------------------------*/
+
+section {
+  padding-block: 3rem;  /* 上下に3remの内側余白を追加する */
+  padding-inline: 16px; /* 左右に16pxの内側余白を追加する */
+
+  .section-inner {
+    max-width: 960px;    /* コンテンツの最大横幅を制限する */
+    margin-inline: auto; /* 左右を自動にして中央寄せにする */
+  }
+
+  .section-title {
+    font-size: 2rem;                  /* 見出しの文字サイズを基準の2倍にする */
+    margin-inline: auto;              /* 左右の外側余白を自動にして中央寄せにする */
+    margin-bottom: 30px;              /* 見出しの下に余白を空ける */
+    width: fit-content;               /* 見出しの幅を文字の幅に合わせる */
+    border-bottom: solid 1px #383e45; /* 文字の下に細い線を引く */
+  }
+
+  .content-title {
+    font-size: 1rem; /* コンテンツ見出しの文字サイズ */
+    margin: 10px 0;  /* 上下に余白を追加する */
+  }
+}
+
+/*-------------------------------------------
+About
+-------------------------------------------*/
+
+.about-content {
+  display: flex;           /* 中の要素を横並びに配置する */
+  justify-content: center; /* 横方向の中央に揃える */
+  align-items: center;     /* 縦方向の中央に揃える */
+  gap: 30px;               /* 子要素同士の間隔 */
+
+  img {
+    width: 200px;        /* 画像の横幅を固定する */
+    aspect-ratio: 1 / 1; /* 縦横比を1:1にする（正方形） */
+    border-radius: 50%;  /* 角を50%丸めて正円形にする */
+  }
+}
+
+/*-------------------------------------------
+Cat
+-------------------------------------------*/
+
+.cat {
+  background-color: #f5f5f2; /* セクション全幅に薄い背景色を敷く */
+}
+
+.cat-list {
+  list-style: none;               /* リスト先頭の「・」を非表示にする */
+  margin: 0;                      /* リスト既定の外側余白を解除する */
+  padding: 0;                     /* リスト既定の内側余白を解除する */
+  display: flex;                  /* 項目を横並びに配置する */
+  justify-content: space-between; /* 項目を均等に並べる */
+  gap: 1rem;                      /* 項目同士の間隔 */
+
+  li {
+    flex: 1; /* リスト項目の横幅を均等にする */
+  }
+}
+
+/* クリックすると拡大表示される猫の写真 */
+.cat-image {
+  cursor: pointer;    /* 押せることを伝える */
+  border-radius: 4px; /* 角を少し丸める */
+  transition: 0.3s;   /* ホバーの変化を0.3秒でつなぐ */
+
+  &:hover {
+    opacity: 0.85;             /* 少し薄くして反応を伝える */
+    transform: scale(1.02);    /* 2%だけ拡大する */
+  }
+}
+
+/*-------------------------------------------
+★2 スクロールでふわっと表示
+
+  普段は透明で少し下にずらしておき、
+  JavaScript が is-visible を付けたら元に戻します。
+-------------------------------------------*/
+
+.fade {
+  opacity: 0;                   /* 透明にする */
+  transform: translateY(30px);  /* 30px下にずらしておく */
+  transition: 0.8s;             /* 0.8秒かけて変化させる */
+
+  /* ★ is-visible が付いたら、見える位置に戻す */
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2枚目・3枚目は少し遅れて動き出す（JavaScript には手を入れません） */
+#cat-2 {
+  transition-delay: 0.15s;
+}
+
+#cat-3 {
+  transition-delay: 0.3s;
+}
+
+/*-------------------------------------------
+★3 モーダルウィンドウ
+-------------------------------------------*/
+
+.modal {
+  position: fixed;                    /* 画面に対して固定する */
+  inset: 0;                           /* 画面いっぱいに広げる */
+  z-index: 200;                       /* いちばん手前に置く */
+  display: flex;
+  align-items: center;                /* 中身を上下中央に */
+  justify-content: center;            /* 中身を左右中央に */
+  padding: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.75); /* 半透明の黒＝背景を暗くする */
+
+  /* 普段は見えない状態にしておく */
+  opacity: 0;
+  visibility: hidden;  /* 見えないだけでなく、クリックも受け付けなくする */
+  transition: 0.3s;
+
+  /* ★ is-open が付いたら表示する */
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+
+    .modal-inner {
+      transform: scale(1); /* 小さい状態から等倍へ */
+    }
+  }
+}
+
+.modal-inner {
+  position: relative;    /* ✕ボタンの位置の基準になる */
+  max-width: 600px;
+  transform: scale(0.9); /* 閉じているときは少し小さくしておく */
+  transition: 0.3s;
+}
+
+.modal-image {
+  width: 100%;
+  max-height: 75vh;     /* 画面の高さの75%まで。縦長の画面でもはみ出さない */
+  object-fit: contain;  /* 全体が見えるように収める */
+  border-radius: 4px;
+}
+
+.modal-close {
+  position: absolute;
+  top: -1rem;
+  right: -1rem;
+  width: 44px;
+  height: 44px;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%; /* 正方形を円にする */
+  color: #383e45;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: #383e45;
+    color: #fff;
+  }
+}
+
+/*-------------------------------------------
+footer
+-------------------------------------------*/
+
+footer {
+  padding: 1rem 0;    /* 上下に内側余白を追加する */
+  text-align: center; /* テキストを中央揃えにする */
+}
+
+/*===========================================================
+  スマートフォン向け（画面幅768px以下）
+===========================================================*/
+
+@media (max-width: 768px) {
+
+  /* ハンバーガーボタンを表示する */
+  .menu-btn {
+    display: block;
+  }
+
+  /* メニューを開いてもロゴが隠れないように、手前に出しておく */
+  .site-title {
+    position: relative;
+    z-index: 101;
+  }
+
+  /* メニュー本体 */
+  .nav {
+    position: fixed;         /* 画面に対して固定する */
+    inset: 0;                /* 画面いっぱいに広げる */
+    z-index: 100;
+    display: flex;
+    align-items: center;     /* 上下中央 */
+    justify-content: center; /* 左右中央 */
+    background-color: #f5f5f2;
+
+    /* ★ 普段は画面の外（右）に隠しておく */
+    transform: translateX(100%);
+    transition: 0.4s;
+
+    /* ★ is-open が付いたら、元の位置に戻す＝滑り込んでくる */
+    &.is-open {
+      transform: translateX(0);
+    }
+  }
+
+  .global-nav {
+    flex-direction: column; /* 項目を縦に並べる */
+    gap: 1.5rem;
+  }
+
+  /* メインビジュアルの高さを抑える */
+  .mainvisual img {
+    height: 320px;
+  }
+
+  /* Aboutを縦並びにする */
+  .about-content {
+    flex-direction: column;
+  }
+
+  /* 猫の一覧を縦並びにする */
+  .cat-list {
+    flex-direction: column;
+  }
+}
+
+/*-------------------------------------------
+動きを控えめにする設定への配慮
+-------------------------------------------*/
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

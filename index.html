@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="猫好きによる猫好きのためのサイトです。">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEKO LOVE</title>
+  <link rel="shortcut icon" href="./images/favicon.ico">
+  <link rel="stylesheet" href="./css/style.css">
+  <!-- defer ＝ HTMLを全部読み終わってから、このJSを動かすという印 -->
+  <script src="./js/script.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <h1 class="site-title"><a href="/"><img src="./images/logo.svg" alt="NEKO LOVEサイト" width="300" height="145"></a></h1>
+
+    <!-- ハンバーガーボタン（スマートフォンのときだけ表示されます） -->
+    <button type="button" class="menu-btn" id="menu-btn" aria-label="メニューを開閉する">
+      <span class="menu-btn-bar"></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="global-nav">
+        <li><a href="#about">About</a></li>
+        <li><a href="#cat">Cat</a></li>
+        <li><a href="./contact.html" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="mainvisual">
+      <img src="./images/mainvisual.jpg" alt="猫の画像">
+    </div>
+
+    <section id="about" class="about">
+      <div class="section-inner">
+        <h2 class="section-title fade" id="about-title">About</h2>
+        <div class="about-content fade" id="about-content">
+          <img src="./images/about.jpg" alt="管理人の画像">
+          <div class="text">
+            <h3 class="content-title">NEKO LOVER</h3>
+            <p>lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cat" class="cat">
+      <div class="section-inner">
+        <h2 class="section-title fade" id="cat-title">Cat</h2>
+        <ul class="cat-list">
+          <li class="fade" id="cat-1">
+            <img class="cat-image" id="cat-image-1" src="./images/cat01.jpg" alt="猫の画像">
+            <h3 class="content-title">グレー&ホワイト（ハチワレ）</h3>
+            <p>顔の上半分がグレー、下半分が白に分かれた「ハチワレ」模様が特徴。おっとりとした性格の子が多いと言われています。</p>
+          </li>
+          <li class="fade" id="cat-2">
+            <img class="cat-image" id="cat-image-2" src="./images/cat02.jpg" alt="猫の画像">
+            <h3 class="content-title">白黒（ハチワレ）</h3>
+            <p>黒と白のコントラストがはっきりした「ハチワレ」模様の猫。人懐っこく活発な性格の子が多いとされています。</p>
+          </li>
+          <li class="fade" id="cat-3">
+            <img class="cat-image" id="cat-image-3" src="./images/cat03.jpg" alt="猫の画像">
+            <h3 class="content-title">キジトラ</h3>
+            <p>茶色がかった毛に黒い縞模様が入った、日本で最もよく見られる毛色。賢く、野性味を残した個体が多いと言われています。</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy;2026 nests</p>
+  </footer>
+
+  <!-- モーダルウィンドウ（普段は見えない状態です） -->
+  <div class="modal" id="modal">
+    <div class="modal-inner">
+      <img class="modal-image" id="modal-image" src="" alt="">
+      <button type="button" class="modal-close" id="modal-close" aria-label="閉じる">✕</button>
+    </div>
+  </div>
+</body>
+
+</html>
