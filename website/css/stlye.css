@@ -1,0 +1,374 @@
+@charset "utf-8";
+
+/*共通部分--------------------*/
+
+html {
+    font-size: 100%;
+  
+}
+
+body {
+    font-family: " Hiragino Kaku Gthic ProN", "Hiragino Sans";
+    line-height: 1.7;
+    color: black;
+}
+a {
+    text-decoration: none;
+}
+image {
+    max-width: 100%;
+}
+
+/*レイアウト*/
+.align-center {
+    text-align: left;
+}
+
+/*ヘッダー*/
+.header {
+   display: flex;
+   justify-content: space-between;
+   
+   padding: 15px;
+}
+.logo {
+    width: 100%;
+    max-width: 300px;
+}
+
+*/ハンバーガーメニュー*/
+.menu-wrapper {
+  position: absolute;
+}
+
+.menu-icon {
+  width: 50px;
+  height: 50px;
+  position: fixed; /* ← fixedにして常に左上固定 */
+  top: 70px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 3;
+  display: inline-block;
+  background-color: #b94047;  
+  margin: 10px;
+}
+.menu-text {
+    color: #fff;
+}
+
+.menu-icon span {
+  width: 40px;
+  display: block;
+  height: 2px;
+  margin: 8px 4px;
+  background: #fff;
+  border-radius: 2px;
+  transition: 0.4s;
+}
+
+
+/* ハンバーガーがXに変形 */
+#menu-toggle:checked + .menu-icon span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+#menu-toggle:checked + .menu-icon span:nth-child(2) {
+  opacity: 0;
+}
+#menu-toggle:checked + .menu-icon span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
+/* オーバーレイ背景 */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+  z-index: 1;
+}
+
+#menu-toggle:checked ~ .overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* メニュー本体（左から出す） */
+.menu {
+  position: fixed;
+  top: 0;
+  left: -250px; /* ← 初期位置を左へ */
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  transition: left 0.4s ease;
+  z-index: 2;
+}
+
+#menu-toggle:checked ~ .menu {
+  left: 0; /* ← 開いたときは左0へ */
+}
+
+.menu ul {
+  list-style: none;
+  padding: 60px 20px;
+}
+
+.menu li {
+  margin: 20px 0;
+}
+
+.menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.menu a:hover {
+  color: #b94047;
+}
+
+
+
+header {
+    background-color: #fff;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.contact , .main-visual{
+    text-align: center;
+}
+
+.main-visual {
+  img {
+    width: 100%;              
+    height: auto;           
+    object-fit: cover;       
+    object-position: bottom 0 right 0; 
+  }
+  padding: 30px;
+}
+
+.search-btn {
+  display: inline-block;
+  font-size: 1rem;
+  background-color: #b94047;
+  color: #fff;
+  padding: .75rem 1.5rem;
+   &:hover {
+      opacity: 0.7; /* マウスを乗せたとき、透明度を70%にして少し薄く見せる */
+    }
+  margin: 20px;
+  }
+
+
+.plan {
+  
+  text-align: center;
+  background-color: #fcf4f4;
+  padding: 40px;
+  
+}
+
+.plan img {
+  width: 100%;
+  max-width: 800px;
+  text-align: center;
+}
+
+
+.btn {
+  display: inline-block;
+  font-size: 1rem;
+  background-color: #437342;
+  color: #fff;
+  padding: .75rem 1.5rem;
+   &:hover {
+      opacity: 0.7; /* マウスを乗せたとき、透明度を70%にして少し薄く見せる */
+    }
+  } 
+
+.explanation{
+  text-align: center;
+  padding: 10px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  font-size: 20px;
+}
+
+
+.detail-btn {
+  display: inline-block;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #333;
+  margin-bottom: 2rem;
+  margin-right: 2rem;
+  border: 1px solid #333;
+  padding: 15px;
+ 
+}
+
+.detail {
+  text-align: right;
+}
+.onsen1 {
+  text-align: center;
+}
+.onsen2 {
+  text-align: center;
+}
+.onsen3 {
+  text-align: center;
+}
+
+.onsen4 {
+  text-align: center;
+}
+
+.onsen5 {
+  text-align: center;
+}
+
+.onsen6 {
+  text-align: center;
+}
+
+.onsen-list {
+  list-style: none;
+}
+
+h3 {
+  display: inline-block;
+  font-size: 1rem;
+  background-color: #437342;
+  color: #fff;
+  padding: .75rem 4rem;
+  margin-inline: 20px;
+  margin-top: 100px;
+  
+}
+
+.onsen-list img {
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+}
+
+.onsen {
+  background-color: rgb(238, 255, 250);
+
+}
+
+/*イベント・お知らせ*/
+
+h2{
+  text-align: center;
+}
+
+.info {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 1.5rem;
+  border-spacing: 0;
+}
+
+.info th,
+.info td {
+ border-bottom: 1px solid #333;
+}
+
+.info th {
+  text-align: left;
+  font-weight: normal;
+  padding: 1rem;
+}
+
+.info td {
+  padding: 1rem 0;
+}
+
+.more {
+  text-align: center;
+  padding: 4rem;
+}
+
+/*アクセス*/
+
+.access {
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 1.5rem;
+  border-spacing: 0;
+}
+
+.access th,
+.access td {
+ border-bottom: 1px solid #333;
+}
+
+.access th {
+  text-align: left;
+  font-weight: normal;
+  padding: 1rem;
+}
+
+.access td {
+  padding: 1rem 0;
+}
+
+.information {
+  margin-top: 100px;
+}
+
+/*○○温泉グループ　メニュー*/
+.side-menu {
+  list-style: none;
+  text-align: center;
+  margin-bottom: 4rem;
+  
+}
+
+.side-menu li {
+  border-bottom: 1px solid #333;
+}
+.side-menu a {
+  color: #333;
+  display: block;
+  padding: 1rem;
+}
+
+.side-menu a:hover {
+  color: #b94047;
+}
+
+.sidebar {
+  width: 100%;
+  max-width: 1100px;
+  margin: 100px auto;
+  padding: 0 1.5rem;
+  border-spacing: 0;
+}
+
+.page-footer {
+  text-align: center;
+  background-color: #000000;
+  color: #fff;
+ 
+  
+}
+
+.page-footer img {
+  width: 100%;
+  max-width: 200px;
+  
+}
